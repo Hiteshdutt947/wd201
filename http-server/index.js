@@ -1,47 +1,56 @@
-const http = require("http");
-const fs = require("fs");
+const http = require('http')
+const fs = require('fs')
+const express = require('express')
+const app = express()
 
-let homeContent = "";
-let projectContent = "";
-let registrationContent ="";
+let homeContent = ''
+let projectContent = ''
+let registrationContent = ''
 
-fs.readFile("home.html", (err, home) => {
+fs.readFile('home.html', (err, home) => {
   if (err) {
-    throw err;
+    throw err
   }
-  homeContent = home;
-});
+  homeContent = home
+})
 
-fs.readFile("project.html", (err, project) => {
+fs.readFile('project.html', (err, project) => {
   if (err) {
-    throw err;
+    throw err
   }
-  projectContent = project;
-});
-fs.readFile("registration.html", (err, Registration) => {
+  projectContent = project
+})
+
+fs.readFileSync('registration.html', (err, registration) => {
   if (err) {
-    throw err;
+    throw err
   }
-  registartionContent = Registration;
-});
+  registrationContent = registration
+})
 
 http
   .createServer((request, response) => {
-    let url = request.url;
-    response.writeHeader(200, { "Content-Type": "text/html" });
+    const url = request.url
+    response.writeHeader(200, { 'Content-Type': 'text/html' })
     switch (url) {
-      case "/project":
-        response.write(projectContent);
-        response.end();
-        break;
-      case "/registration":
-        response.write(registration.html);
-        response.end();
-        break;
+      case '/project':
+        response.write(projectContent)
+        response.end()
+        break
+      case '/registration':
+        response.write(registrationContent)
+        app.use(express.static('public'))
+
+        app.get('/', function(req, res) {
+              res.sendFile(__dirname + '/registration.html')
+        })
+        response.end()
+        break
       default:
-        response.write(homeContent);
-        response.end();
-        break;
+        response.write(homeContent)
+        response.end()
+        break
     }
-  })
-  .listen(5000);
+  }).listen(5000)
+
+
