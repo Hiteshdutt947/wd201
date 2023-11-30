@@ -2,6 +2,7 @@ const http = require('http')
 const fs = require('fs')
 const express = require('express')
 const app = express()
+const port = process.argv.port
 
 let homeContent = ''
 let projectContent = ''
@@ -21,7 +22,7 @@ fs.readFile('project.html', (err, project) => {
   projectContent = project
 })
 
-fs.readFileSync('registration.html', (err, registration) => {
+fs.readFile('registration.html', (err, registration) => {
   if (err) {
     throw err
   }
@@ -39,11 +40,6 @@ http
         break
       case '/registration':
         response.write(registrationContent)
-        app.use(express.static('public'))
-
-        app.get('/', function(req, res) {
-              res.sendFile(__dirname + '/registration.html')
-        })
         response.end()
         break
       default:
@@ -51,6 +47,5 @@ http
         response.end()
         break
     }
-  }).listen(5000)
-
+  }).listen(port)
 
