@@ -1,51 +1,50 @@
-const http = require('http')
-const fs = require('fs')
-const express = require('express')
-const app = express()
-const port = process.argv.port
+const http = require("http");
+const fs = require("fs");
 
-let homeContent = ''
-let projectContent = ''
-let registrationContent = ''
+const argv = require("minimist")(process.argv.slice(2));
 
-fs.readFile('home.html', (err, home) => {
+let homeContent = "";
+let projectContent = "";
+let registrationContent = "";
+
+fs.readFile("home.html", (err, home) => {
   if (err) {
-    throw err
+    throw err;
   }
-  homeContent = home
-})
+  homeContent = home;
+});
 
-fs.readFile('project.html', (err, project) => {
+fs.readFile("project.html", (err, project) => {
   if (err) {
-    throw err
+    throw err;
   }
-  projectContent = project
-})
+  projectContent = project;
+});
 
-fs.readFile('registration.html', (err, registration) => {
+fs.readFile("registration.html", (err, registration) => {
   if (err) {
-    throw err
+    throw err;
   }
-  registrationContent = registration
-})
+  registrationContent = registration;
+});
 
-http
-  .createServer((request, response) => {
-    const url = request.url
-    response.writeHeader(200, { 'Content-Type': 'text/html' })
-    switch (url) {
-      case '/project':
-        response.write(projectContent)
-        response.end()
-        break
-      case '/registration':
-        response.write(registrationContent)
-        response.end()
-        break
-      default:
-        response.write(homeContent)
-        response.end()
-        break
-    }
-  }).listen(port)
-
+const server = http.createServer((request, response) => {
+  const url = request.url;
+  response.writeHeader(200, { "Content-Type": "text/html" });
+  switch (url) {
+    case "/project.html":
+      response.write(projectContent);
+      response.end();
+      break;
+    case "/registration.html":
+      response.write(registrationContent);
+      response.end();
+      break;
+    default:
+      response.write(homeContent);
+      response.end();
+      break;
+  }
+});
+const port = argv.port;
+server.listen(port);
