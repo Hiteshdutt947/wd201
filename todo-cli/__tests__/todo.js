@@ -24,4 +24,13 @@ describe("TodoList Test Suite", () => {
     markAsComplete(0);
     expect(all[0].completed).toBe(true);
   });
+  test("checks return a list of overdue todos", () => {
+    expect(todoList().overdue()).toEqual([]);
+  });
+  test("checks return a list of todos due today", () => {
+    expect(todoList().dueToday()).toEqual([]);
+  });
+  test("checks return a list of todos due later", () => {
+    expect(todoList().dueLater()).toEqual([]);
+  });
 });
