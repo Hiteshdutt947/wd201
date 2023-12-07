@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+
 const todoList = () => {
   all = [];
   const add = (todoItem) => {
@@ -9,6 +10,7 @@ const todoList = () => {
   };
 
   const overdue = () => {
+    let today = new Date().toLocaleDateString("en-CA");
     // Write the date check condition here and return the array of overdue items accordingly.
     // FILL YOUR CODE HERE
     // ..
@@ -18,6 +20,7 @@ const todoList = () => {
   };
 
   const dueToday = () => {
+    let today = new Date().toLocaleDateString("en-CA");
     // Write the date check condition here and return the array of todo items that are due today accordingly.
     // FILL YOUR CODE HERE
     // ..
@@ -27,6 +30,7 @@ const todoList = () => {
   };
 
   const dueLater = () => {
+    let today = new Date().toLocaleDateString("en-CA");
     // Write the date check condition here and return the array of todo items that are due later accordingly.
     // FILL YOUR CODE HERE
     // ..
@@ -36,6 +40,7 @@ const todoList = () => {
   };
 
   const toDisplayableList = (list) => {
+    let today = new Date().toLocaleDateString("en-CA");
     // Format the To-Do list here, and return the output snvmtring as per the format given above.
     // FILL YOUR CODE HERE
     // ..
